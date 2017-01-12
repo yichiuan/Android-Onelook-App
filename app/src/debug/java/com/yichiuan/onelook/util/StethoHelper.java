@@ -14,7 +14,7 @@ public class StethoHelper {
         Stetho.initializeWithDefaults(context);
     }
 
-    public static void configureInterceptor(OkHttpClient.Builder httpClientbuilder) {
-        httpClientbuilder.addNetworkInterceptor(new StethoInterceptor());
+    public static void configureInterceptor(OkHttpClient.Builder httpClientBuilder) {
+        httpClientBuilder.addNetworkInterceptor(new StethoInterceptor());
     }
 }

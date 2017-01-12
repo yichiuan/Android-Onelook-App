@@ -10,7 +10,7 @@ public class StethoHelper {
 
     }
 
-    public static void configureInterceptor(OkHttpClient.Builder httpClientbuilder) {
+    public static void configureInterceptor(OkHttpClient.Builder httpClientBuilder) {
 
     }
 }

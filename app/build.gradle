@@ -53,8 +53,24 @@ dependencies {
     compile "io.reactivex:rxandroid:${libs.rxandroid}"
     compile "io.reactivex:rxjava:${libs.rxjava}"
 
+    // Retrofit
+    compile "com.squareup.retrofit2:retrofit:${libs.retrofit}"
+    compile "com.squareup.retrofit2:adapter-rxjava:${libs.retrofit}"
+    compile "com.squareup.retrofit2:converter-gson:${libs.retrofit}"
     compile "com.squareup.okhttp3:okhttp:${libs.okhttp3}"
     compile "com.squareup.okhttp3:logging-interceptor:${libs.okhttp3}"
+
+    // tikxml
+    compile "com.tickaroo.tikxml:annotation:${libs.tikxml}"
+    compile "com.tickaroo.tikxml:core:${libs.tikxml}"
+    compile "com.tickaroo.tikxml:retrofit-converter:${libs.tikxml}"
+
+    apt "com.tickaroo.tikxml:processor:${libs.tikxml}"
+    apt "com.tickaroo.tikxml:auto-value-tikxml:${libs.tikxml}"
+
+    // AutoValue
+    provided "com.google.auto.value:auto-value:${libs.auto_value}"
+    apt "com.google.auto.value:auto-value:${libs.auto_value}"
 
     // Timber For Log
     compile "com.jakewharton.timber:timber:${libs.timber}"
