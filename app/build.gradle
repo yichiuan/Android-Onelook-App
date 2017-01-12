@@ -49,6 +49,10 @@ dependencies {
     compile "com.jakewharton:butterknife:${libs.butterknife}"
     apt "com.jakewharton:butterknife-compiler:${libs.butterknife}"
 
+    // Dagger2
+    compile "com.google.dagger:dagger:${libs.dagger}"
+    apt "com.google.dagger:dagger-compiler:${libs.dagger}"
+
     // RxJava
     compile "io.reactivex:rxandroid:${libs.rxandroid}"
     compile "io.reactivex:rxjava:${libs.rxjava}"

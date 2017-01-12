@@ -5,12 +5,18 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.squareup.leakcanary.LeakCanary;
+import com.yichiuan.onelook.injection.AppComponent;
+import com.yichiuan.onelook.injection.AppModule;
+import com.yichiuan.onelook.injection.DaggerAppComponent;
+import com.yichiuan.onelook.injection.DataModule;
 import com.yichiuan.onelook.util.StethoHelper;
 
 import timber.log.Timber;
 
 
 public class OnelookApp extends Application {
+
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -49,6 +55,15 @@ public class OnelookApp extends Application {
         if (BuildConfig.DEBUG) {
             StethoHelper.init(this);
         }
+
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .dataModule(new DataModule())
+                .build();
+    }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 
     private static class FakeCrashReportTree extends Timber.Tree {
