@@ -1,4 +1,4 @@
-package com.example.yichiuan.androidonelookapp;
+package com.yichiuan.onelook;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

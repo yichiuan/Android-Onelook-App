@@ -35,6 +35,9 @@
 # Retrolambda
 -dontwarn java.lang.invoke.*
 
+# okio
+-dontwarn okio.**
+
 # SearchView
 -keepclassmembers public class android.support.v7.widget.SearchView {
     public <init>(...);

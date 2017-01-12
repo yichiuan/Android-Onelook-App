@@ -1,4 +1,4 @@
-package com.example.yichiuan.androidonelookapp;
+package com.yichiuan.onelook;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.yichiuan.androidonelookapp", appContext.getPackageName());
+        assertEquals("com.yichiuan.onelook", appContext.getPackageName());
     }
 }

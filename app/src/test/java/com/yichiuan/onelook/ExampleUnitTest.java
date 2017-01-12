@@ -1,4 +1,4 @@
-package com.example.yichiuan.androidonelookapp;
+package com.yichiuan.onelook;
 
 import org.junit.Test;
 
