@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 25
@@ -12,19 +15,59 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+            minifyEnabled true
+            // Uses new built-in shrinker http://tools.android.com/tech-docs/new-build-system/built-in-shrinker
+            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dexcount {
+    format = "yaml"
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    compile "com.android.support:appcompat-v7:${libs.supportVersion}"
+    compile "com.android.support:design:${libs.supportVersion}"
+
+    // ButterKnife
+    compile "com.jakewharton:butterknife:${libs.butterknife}"
+    apt "com.jakewharton:butterknife-compiler:${libs.butterknife}"
+
+    // RxJava
+    compile "io.reactivex:rxandroid:${libs.rxandroid}"
+    compile "io.reactivex:rxjava:${libs.rxjava}"
+
+    // Timber For Log
+    compile "com.jakewharton.timber:timber:${libs.timber}"
+
+    // LeakCanary
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${libs.leakcanary}"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${libs.leakcanary}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${libs.leakcanary}"
+
+    // Stetho
+    debugCompile "com.facebook.stetho:stetho:${libs.stetho}"
+    debugCompile "com.facebook.stetho:stetho-okhttp3:${libs.stetho}"
+
+    testCompile "junit:junit:${libs.junit}"
+
+    androidTestCompile("com.android.support.test.espresso:espresso-core:${libs.espresso}", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:design:25.1.0'
-    testCompile 'junit:junit:4.12'
 }

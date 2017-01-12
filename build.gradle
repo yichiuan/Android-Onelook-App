@@ -6,6 +6,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.6.2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'me.tatarka:gradle-retrolambda:3.3.1'
     }
 }
 
@@ -13,6 +16,24 @@ allprojects {
     repositories {
         jcenter()
     }
+}
+
+ext {
+    libs = [
+            supportVersion: "25.1.0",
+            butterknife   : "8.4.0",
+            rxandroid     : "1.2.1",
+            rxjava        : "1.2.4",
+            // for debug
+            timber        : "4.4.0",
+            leakcanary    : "1.5",
+            stetho        : "1.4.2",
+            // for test
+            junit         : "4.12",
+            testrunner    : "0.5",
+            espresso      : "2.2.2",
+            hamcrest      : "1.3",
+    ]
 }
 
 task clean(type: Delete) {
