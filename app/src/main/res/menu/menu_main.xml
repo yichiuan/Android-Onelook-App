@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.yichiuan.onelook.MainActivity">
+    tools:context="com.yichiuan.onelook.presentation.main.MainActivity">
 
     <item android:id="@+id/menu_search"
         android:title="@string/all_search"
