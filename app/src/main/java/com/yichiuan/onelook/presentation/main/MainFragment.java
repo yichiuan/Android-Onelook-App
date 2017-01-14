@@ -7,6 +7,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -23,18 +25,28 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yichiuan.onelook.R;
+import com.yichiuan.onelook.data.remote.model.OLRes;
 import com.yichiuan.onelook.data.remote.model.OLResponse;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import timber.log.Timber;
 
 
 public class MainFragment extends Fragment implements MainContract.View {
+
+    @BindView(R.id.recyclerview_main_dictionary)
+    RecyclerView dictionaryRecyclerview;
 
     private MainContract.Presenter presenter;
     private SearchView searchView;
     private MenuItem menuSearchItem;
 
     private ProgressBar progressBar;
+
+    private DictionariesAdapter dictionariesAdapter;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -44,10 +56,17 @@ public class MainFragment extends Fragment implements MainContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, root);
+
         setHasOptionsMenu(true);
 
-        progressBar = (ProgressBar)container.findViewById(R.id.progressBar);
+        progressBar = (ProgressBar) container.findViewById(R.id.progressBar);
         progressBar.post(() -> progressBar.bringToFront());
+
+        dictionaryRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        dictionariesAdapter = new DictionariesAdapter(getContext(), new ArrayList<OLRes>());
+        dictionaryRecyclerview.setAdapter(dictionariesAdapter);
+
         return root;
     }
 
@@ -101,7 +120,7 @@ public class MainFragment extends Fragment implements MainContract.View {
 
             presenter.fetchWordInfo(query);
 
-            if (searchView!=null && !searchView.isIconified()) {
+            if (searchView != null && !searchView.isIconified()) {
 
                 searchView.clearFocus();
                 searchView.setQuery("", false);
@@ -135,6 +154,8 @@ public class MainFragment extends Fragment implements MainContract.View {
             definitionView.setText(builder);
             return;
         }
+
+        dictionariesAdapter.setResources(response.resList());
 
         if (response.quickDefs() == null) {
             builder.append(getString(R.string.main_definition_no_quick_def));

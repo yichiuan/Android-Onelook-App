@@ -52,7 +52,13 @@
         android:id="@+id/fragment_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingTop="@dimen/padding_main_fragment_top_bottom"
+        android:paddingBottom="@dimen/padding_main_fragment_top_bottom"
+        android:paddingLeft="@dimen/padding_main_fragment_left_and_right"
+        android:paddingRight="@dimen/padding_main_fragment_left_and_right"
+        android:paddingEnd="@dimen/padding_main_fragment_left_and_right"
+        android:paddingStart="@dimen/padding_main_fragment_left_and_right">
 
         <ProgressBar
             style="@style/Widget.AppCompat.ProgressBar"

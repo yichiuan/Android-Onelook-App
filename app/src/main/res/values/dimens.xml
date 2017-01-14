@@ -1,4 +1,9 @@
 <resources>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="margin_textview_definition">8dp</dimen>
+    <dimen name="padding_main_fragment_top_bottom">8dp</dimen>
+    <dimen name="padding_main_fragment_left_and_right">8dp</dimen>
+    <dimen name="margin_item_dictionary_top_and_bottom">4dp</dimen>
+    <dimen name="margin_item_dictionary_left_and_right">2dp</dimen>
+    <dimen name="padding_item_dictionary">4dp</dimen>
 </resources>
