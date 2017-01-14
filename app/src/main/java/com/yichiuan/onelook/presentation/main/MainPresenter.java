@@ -5,6 +5,10 @@ import android.support.annotation.NonNull;
 import com.yichiuan.onelook.data.DictionaryRepository;
 import com.yichiuan.onelook.presentation.base.BasePresenter;
 
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
+
 
 public class MainPresenter extends BasePresenter implements MainContract.Presenter {
 
@@ -15,5 +19,21 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
         this.view = view;
         view.setPresenter(this);
         this.dictionaryRepository = dictionaryRepository;
+    }
+
+    @Override
+    public void fetchWordInfo(String word) {
+
+        view.setLoadingIndicator(true);
+
+        addSubscription(dictionaryRepository.fetchWordInfo(word)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        response -> view.showDefinition(word, response),
+                        error -> Timber.e(error),
+                        () -> view.setLoadingIndicator(false)
+                )
+        );
     }
 }

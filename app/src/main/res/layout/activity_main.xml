@@ -20,35 +20,47 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:titleEnabled="false"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <TextView
+                android:id="@+id/text_definition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+                android:layout_gravity="center_vertical"
+                app:layout_collapseMode="pin"
+                tools:text="bluebird"
+                android:layout_marginRight="@dimen/margin_textview_definition"
+                android:layout_marginLeft="@dimen/margin_textview_definition"
+                android:layout_marginTop="@dimen/margin_textview_definition" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                android:theme="@style/AppTheme.AppBarOverlay.Toolbar"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/fragment_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-    <!--<android.support.v4.widget.NestedScrollView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--tools:showIn="@layout/activity_main">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="" />-->
-
-    <!--</android.support.v4.widget.NestedScrollView>-->
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:visibility="invisible" />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

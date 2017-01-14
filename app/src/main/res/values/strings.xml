@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Android Onelook App</string>
-    <string name="all_search">search</string>
+    <string name="all_search">Search</string>
+    <string name="search_here">Here to Search</string>
+    <string name="main_definition_not_found">Not Found</string>
+    <string name="main_definition_no_quick_def">No Quick Defition</string>
 </resources>
