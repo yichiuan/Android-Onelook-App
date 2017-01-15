@@ -1,6 +1,7 @@
 package com.yichiuan.onelook.presentation.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.yichiuan.onelook.R;
 import com.yichiuan.onelook.data.remote.model.OLRes;
+import com.yichiuan.onelook.presentation.dictionarydetail.DictionaryDetailActivity;
 
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
 
     private List<OLRes> dictionaries;
     private LayoutInflater inflater;
+    private Context context;
 
     public DictionariesAdapter(Context context, List<OLRes> dictionaries) {
         this.dictionaries = dictionaries;
+        this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
@@ -38,7 +42,13 @@ public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.dictionaryTextView.setText(dictionaries.get(position).dictionary());
+        OLRes resource = dictionaries.get(position);
+        holder.dictionaryTextView.setText(resource.dictionary());
+        holder.dictionaryTextView.setOnClickListener((v -> {
+            Intent intent = new Intent(context, DictionaryDetailActivity.class);
+            intent.putExtra("dictionary_url", resource.link());
+            context.startActivity(intent);
+        }));
     }
 
     @Override

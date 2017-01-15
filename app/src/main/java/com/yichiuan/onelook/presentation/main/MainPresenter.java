@@ -30,7 +30,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        response -> view.showDefinition(word, response),
+                        response -> view.showWordInfo(word, response),
                         error -> Timber.e(error),
                         () -> view.setLoadingIndicator(false)
                 )

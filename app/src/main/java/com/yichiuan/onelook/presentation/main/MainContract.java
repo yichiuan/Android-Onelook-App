@@ -9,7 +9,7 @@ public interface MainContract {
     interface View extends BaseView<Presenter> {
         void setLoadingIndicator(boolean active);
 
-        void showDefinition(String word, OLResponse response);
+        void showWordInfo(String word, OLResponse response);
     }
 
     interface Presenter extends MvpPresenter {

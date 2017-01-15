@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,12 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     private ProgressBar progressBar;
 
+    private TextView definitionView;
+
     private DictionariesAdapter dictionariesAdapter;
+
+    private String currentWord;
+    private OLResponse currentResponse;
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -54,18 +60,37 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, root);
-
-        setHasOptionsMenu(true);
 
         progressBar = (ProgressBar) container.findViewById(R.id.progressBar);
         progressBar.post(() -> progressBar.bringToFront());
 
         dictionaryRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        dictionariesAdapter = new DictionariesAdapter(getContext(), new ArrayList<OLRes>());
+
+        if (currentResponse != null) {
+            dictionariesAdapter = new DictionariesAdapter(getContext(), currentResponse.resList());
+        } else {
+
+            dictionariesAdapter = new DictionariesAdapter(getContext(), new ArrayList<OLRes>());
+        }
+
         dictionaryRecyclerview.setAdapter(dictionariesAdapter);
+
+        definitionView = (TextView) getActivity().findViewById(R.id.text_definition);
+
+        if (savedInstanceState != null) {
+            showDefinition();
+        }
 
         return root;
     }
@@ -141,30 +166,37 @@ public class MainFragment extends Fragment implements MainContract.View {
     }
 
     @Override
-    public void showDefinition(String word, OLResponse response) {
+    public void showWordInfo(String word, OLResponse response) {
+        currentWord = word;
+        currentResponse = response;
 
-        TextView definitionView = (TextView) getActivity().findViewById(R.id.text_definition);
+        if (response.resList() != null) {
+            dictionariesAdapter.setResources(response.resList());
+        }
 
-        SpannableStringBuilder builder = new SpannableStringBuilder(word);
-        builder.setSpan(new RelativeSizeSpan(1.5f), 0, word.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        showDefinition();
+    }
+
+    private void showDefinition() {
+
+        SpannableStringBuilder builder = new SpannableStringBuilder(currentWord);
+        builder.setSpan(new RelativeSizeSpan(1.5f), 0, currentWord.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.append("\n\n");
 
-        if (response.resList() == null) {
+        if (currentResponse.resList() == null) {
             builder.append(getString(R.string.main_definition_not_found));
             definitionView.setText(builder);
             return;
         }
 
-        dictionariesAdapter.setResources(response.resList());
-
-        if (response.quickDefs() == null) {
+        if (currentResponse.quickDefs() == null) {
             builder.append(getString(R.string.main_definition_no_quick_def));
             definitionView.setText(builder);
             return;
         }
 
-        if (response.quickDefs().size() > 0) {
-            String origin = response.quickDefs().get(0).quickDef();
+        if (currentResponse.quickDefs().size() > 0) {
+            String origin = currentResponse.quickDefs().get(0).quickDef();
 
             int boldStart = builder.length();
             int speechEnd = origin.indexOf(':');
