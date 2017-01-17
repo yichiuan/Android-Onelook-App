@@ -41,11 +41,12 @@ public class MainFragment extends Fragment implements MainContract.View {
     @BindView(R.id.recyclerview_main_dictionary)
     RecyclerView dictionaryRecyclerview;
 
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+
     private MainContract.Presenter presenter;
     private SearchView searchView;
     private MenuItem menuSearchItem;
-
-    private ProgressBar progressBar;
 
     private TextView definitionView;
 
@@ -71,9 +72,6 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, root);
-
-        progressBar = (ProgressBar) container.findViewById(R.id.progressBar);
-        progressBar.post(() -> progressBar.bringToFront());
 
         dictionaryRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
 

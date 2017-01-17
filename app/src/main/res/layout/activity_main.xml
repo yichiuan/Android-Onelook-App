@@ -52,21 +52,6 @@
         android:id="@+id/fragment_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingTop="@dimen/padding_main_fragment_top_bottom"
-        android:paddingBottom="@dimen/padding_main_fragment_top_bottom"
-        android:paddingLeft="@dimen/padding_main_fragment_left_and_right"
-        android:paddingRight="@dimen/padding_main_fragment_left_and_right"
-        android:paddingEnd="@dimen/padding_main_fragment_left_and_right"
-        android:paddingStart="@dimen/padding_main_fragment_left_and_right">
-
-        <ProgressBar
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:visibility="invisible" />
-    </FrameLayout>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </android.support.design.widget.CoordinatorLayout>
