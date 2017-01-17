@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.app_bar)
     AppBarLayout appBar;
-    @BindView(R.id.toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
 
     private MainFragment fragment;
     private MainPresenter presenter;
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         AppComponent appComponent = ((OnelookApp) getApplicationContext()).getAppComponent();
         DictionaryRepository dictionaryRepository = appComponent.dictionaryRepository();
@@ -48,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         presenter = new MainPresenter(fragment, dictionaryRepository);
-
-        appBar.setExpanded(false);
     }
 
     @Override

@@ -12,6 +12,7 @@ import com.yichiuan.onelook.R;
 import com.yichiuan.onelook.data.remote.model.OLRes;
 import com.yichiuan.onelook.presentation.dictionarydetail.DictionaryDetailActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -20,18 +21,30 @@ import butterknife.ButterKnife;
 
 public class DictionariesAdapter extends RecyclerView.Adapter<DictionariesAdapter.ViewHolder> {
 
+    private static final ArrayList<OLRes> NULL_RESOURCES = new ArrayList<>(0);
+
     private List<OLRes> dictionaries;
     private LayoutInflater inflater;
     private Context context;
 
     public DictionariesAdapter(Context context, List<OLRes> dictionaries) {
-        this.dictionaries = dictionaries;
+
+        if (dictionaries == null) {
+            this.dictionaries = NULL_RESOURCES;
+        } else {
+            this.dictionaries = dictionaries;
+        }
+
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
 
     public void setResources(List<OLRes> resources) {
-        dictionaries = resources;
+        if (resources == null) {
+            dictionaries = NULL_RESOURCES;
+        } else {
+            dictionaries = resources;
+        }
         notifyDataSetChanged();
     }
 

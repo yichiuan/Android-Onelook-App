@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
 import android.text.SpannableStringBuilder;
@@ -26,10 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yichiuan.onelook.R;
-import com.yichiuan.onelook.data.remote.model.OLRes;
 import com.yichiuan.onelook.data.remote.model.OLResponse;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +35,7 @@ import timber.log.Timber;
 public class MainFragment extends Fragment implements MainContract.View {
 
     @BindView(R.id.recyclerview_main_dictionary)
-    RecyclerView dictionaryRecyclerview;
+    HeaderRecyclerView dictionaryRecyclerview;
 
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
@@ -47,11 +43,9 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainContract.Presenter presenter;
     private SearchView searchView;
     private MenuItem menuSearchItem;
-
+    private View headerView;
     private TextView definitionView;
-
     private DictionariesAdapter dictionariesAdapter;
-
     private String currentWord;
     private OLResponse currentResponse;
 
@@ -74,19 +68,24 @@ public class MainFragment extends Fragment implements MainContract.View {
         ButterKnife.bind(this, root);
 
         dictionaryRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        headerView = inflater.inflate(R.layout.item_header, dictionaryRecyclerview, false);
+        definitionView = (TextView) headerView.findViewById(R.id.text_definition);
+        dictionaryRecyclerview.setHeaderView(headerView);
 
-        if (currentResponse != null) {
+        // Configuration Change
+        if (savedInstanceState != null && currentResponse != null) {
             dictionariesAdapter = new DictionariesAdapter(getContext(), currentResponse.resList());
+            dictionaryRecyclerview.setVisibility(View.VISIBLE);
         } else {
 
-            dictionariesAdapter = new DictionariesAdapter(getContext(), new ArrayList<OLRes>());
+            dictionariesAdapter = new DictionariesAdapter(getContext(), null);
+            dictionaryRecyclerview.setVisibility(View.INVISIBLE);
         }
 
         dictionaryRecyclerview.setAdapter(dictionariesAdapter);
 
-        definitionView = (TextView) getActivity().findViewById(R.id.text_definition);
-
-        if (savedInstanceState != null) {
+        // Configuration Change
+        if (savedInstanceState != null && currentResponse != null) {
             showDefinition();
         }
 
@@ -168,11 +167,12 @@ public class MainFragment extends Fragment implements MainContract.View {
         currentWord = word;
         currentResponse = response;
 
-        if (response.resList() != null) {
-            dictionariesAdapter.setResources(response.resList());
-        }
+        dictionariesAdapter.setResources(response.resList());
 
         showDefinition();
+
+        ((LinearLayoutManager)dictionaryRecyclerview.getLayoutManager()).scrollToPositionWithOffset(0, 0);
+        dictionaryRecyclerview.setVisibility(View.VISIBLE);
     }
 
     private void showDefinition() {
@@ -181,7 +181,7 @@ public class MainFragment extends Fragment implements MainContract.View {
         builder.setSpan(new RelativeSizeSpan(1.5f), 0, currentWord.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         builder.append("\n\n");
 
-        if (currentResponse.resList() == null) {
+        if (currentResponse.resList() == null || currentResponse.resList().isEmpty()) {
             builder.append(getString(R.string.main_definition_not_found));
             definitionView.setText(builder);
             return;
