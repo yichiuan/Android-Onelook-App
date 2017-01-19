@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Onelook App</string>
+    <string name="app_name">Onelook</string>
     <string name="all_search">Search</string>
     <string name="search_here">Here to Search</string>
     <string name="main_definition_not_found">Not Found</string>

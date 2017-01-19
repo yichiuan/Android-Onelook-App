@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -48,6 +49,12 @@ public class MainFragment extends Fragment implements MainContract.View {
     private DictionariesAdapter dictionariesAdapter;
     private String currentWord;
     private OLResponse currentResponse;
+
+    private String processText;
+
+    public void setProcessText(String text) {
+        processText = text;
+    }
 
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
@@ -96,6 +103,11 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void onResume() {
         super.onResume();
         presenter.subscribe();
+        if (processText != null) {
+            presenter.fetchWordInfo(processText);
+            collapseSearchView();
+            processText = null;
+        }
     }
 
     @Override
@@ -141,15 +153,27 @@ public class MainFragment extends Fragment implements MainContract.View {
             Timber.i(query);
 
             presenter.fetchWordInfo(query);
+            collapseSearchView();
 
-            if (searchView != null && !searchView.isIconified()) {
+        } else if (Intent.ACTION_PROCESS_TEXT.equals(intent.getAction())) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                String query = intent.getStringExtra(Intent.EXTRA_PROCESS_TEXT);
+                Timber.i(query);
 
-                searchView.clearFocus();
-                searchView.setQuery("", false);
-                searchView.setIconified(true);
-
-                menuSearchItem.collapseActionView();
+                presenter.fetchWordInfo(query);
+                collapseSearchView();
             }
+        }
+    }
+
+    private void collapseSearchView() {
+        if (searchView != null && !searchView.isIconified()) {
+
+            searchView.clearFocus();
+            searchView.setQuery("", false);
+            searchView.setIconified(true);
+
+            menuSearchItem.collapseActionView();
         }
     }
 
