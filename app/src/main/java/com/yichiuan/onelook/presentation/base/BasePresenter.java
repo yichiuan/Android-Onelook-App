@@ -1,12 +1,12 @@
 package com.yichiuan.onelook.presentation.base;
 
-import rx.Subscription;
-import rx.subscriptions.CompositeSubscription;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 
 
 public class BasePresenter implements MvpPresenter {
 
-    private final CompositeSubscription compositeSubscription = new CompositeSubscription();
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable ();
 
     @Override
     public void subscribe() {
@@ -15,10 +15,10 @@ public class BasePresenter implements MvpPresenter {
 
     @Override
     public void unsubscribe() {
-        compositeSubscription.clear();
+        compositeDisposable.clear();
     }
 
-    protected void addSubscription(Subscription subscription) {
-        this.compositeSubscription.add(subscription);
+    protected void addDisposable(Disposable disposable) {
+        this.compositeDisposable.add(disposable);
     }
 }

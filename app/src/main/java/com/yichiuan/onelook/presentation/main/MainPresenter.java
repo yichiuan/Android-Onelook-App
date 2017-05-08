@@ -5,8 +5,8 @@ import android.support.annotation.NonNull;
 import com.yichiuan.onelook.data.DictionaryRepository;
 import com.yichiuan.onelook.presentation.base.BasePresenter;
 
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 
@@ -26,7 +26,7 @@ public class MainPresenter extends BasePresenter implements MainContract.Present
 
         view.setLoadingIndicator(true);
 
-        addSubscription(dictionaryRepository.fetchWordInfo(word)
+        addDisposable(dictionaryRepository.fetchWordInfo(word)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

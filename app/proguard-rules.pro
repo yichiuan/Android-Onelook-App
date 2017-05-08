@@ -24,22 +24,6 @@
     public <init>(...);
 }
 
-# Rxjava
--dontwarn sun.misc.**
-
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
-}
-
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
-
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-
 # okio
 -dontwarn okio.**
 
@@ -58,9 +42,6 @@
     @retrofit2.http.* <methods>;
 }
 
-# If Retrofit2 >= 2.2, don't need this
--dontwarn retrofit2.adapter.rxjava.CompletableHelper$**
-
 # TikXml
 -keep class com.tickaroo.tikxml.** { *; }
 -keep class **$$TypeAdapter { *; }
@@ -72,3 +53,5 @@
 -keepclasseswithmembernames class * {
     @com.tickaroo.tikxml.* <methods>;
 }
+
+-keep class com.yichiuan.onelook.data.remote.model.** { *; }

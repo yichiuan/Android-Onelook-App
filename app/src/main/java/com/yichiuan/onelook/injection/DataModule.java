@@ -15,7 +15,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import timber.log.Timber;
 
 
@@ -50,7 +50,7 @@ public final class DataModule {
         Retrofit retrofit =  new Retrofit.Builder()
                 .baseUrl(ONELOOK_BASE_URL)
                 .client(provideOkHttpClient())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(TikXmlConverterFactory.create())
                 .build();
         return retrofit.create(OneLookService.class);

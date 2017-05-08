@@ -2,9 +2,9 @@ package com.yichiuan.onelook.data.remote;
 
 import com.yichiuan.onelook.data.remote.model.OLResponse;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import rx.Observable;
 
 
 public interface OneLookService {

@@ -1,11 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.yichiuan.onelook"
         minSdkVersion 16
@@ -48,20 +47,19 @@ dependencies {
 
     // ButterKnife
     compile "com.jakewharton:butterknife:${libs.butterknife}"
-    apt "com.jakewharton:butterknife-compiler:${libs.butterknife}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${libs.butterknife}"
 
     // Dagger2
     compile "com.google.dagger:dagger:${libs.dagger}"
-    apt "com.google.dagger:dagger-compiler:${libs.dagger}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${libs.dagger}"
 
     // RxJava
-    compile "io.reactivex:rxandroid:${libs.rxandroid}"
-    compile "io.reactivex:rxjava:${libs.rxjava}"
+    compile "io.reactivex.rxjava2:rxandroid:${libs.rxandroid}"
+    compile "io.reactivex.rxjava2:rxjava:${libs.rxjava}"
 
     // Retrofit
     compile "com.squareup.retrofit2:retrofit:${libs.retrofit}"
-    compile "com.squareup.retrofit2:adapter-rxjava:${libs.retrofit}"
-    compile "com.squareup.retrofit2:converter-gson:${libs.retrofit}"
+    compile "com.squareup.retrofit2:adapter-rxjava2:${libs.retrofit}"
     compile "com.squareup.okhttp3:okhttp:${libs.okhttp3}"
     compile "com.squareup.okhttp3:logging-interceptor:${libs.okhttp3}"
 
@@ -70,12 +68,12 @@ dependencies {
     compile "com.tickaroo.tikxml:core:${libs.tikxml}"
     compile "com.tickaroo.tikxml:retrofit-converter:${libs.tikxml}"
 
-    apt "com.tickaroo.tikxml:processor:${libs.tikxml}"
-    apt "com.tickaroo.tikxml:auto-value-tikxml:${libs.tikxml}"
+    annotationProcessor "com.tickaroo.tikxml:processor:${libs.tikxml}"
+    annotationProcessor "com.tickaroo.tikxml:auto-value-tikxml:${libs.tikxml}"
 
     // AutoValue
     provided "com.google.auto.value:auto-value:${libs.auto_value}"
-    apt "com.google.auto.value:auto-value:${libs.auto_value}"
+    annotationProcessor "com.google.auto.value:auto-value:${libs.auto_value}"
 
     // Timber For Log
     compile "com.jakewharton.timber:timber:${libs.timber}"
