@@ -24,10 +24,13 @@
     public <init>(...);
 }
 
-# okio
+# okhttp3
 -dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
 
 # Retrofit2
+-dontwarn javax.annotation.**
 
 # Platform calls Class.forName on types which do not exist on Android to determine platform.
 -dontnote retrofit2.Platform
@@ -55,3 +58,6 @@
 }
 
 -keep class com.yichiuan.onelook.data.remote.model.** { *; }
+
+# dagger
+-dontwarn dagger.android.**

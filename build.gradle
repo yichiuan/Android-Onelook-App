@@ -22,7 +22,7 @@ ext {
     libs = [
             supportVersion   : '25.3.1',
             butterknife      : '8.7.0',
-            dagger           : '2.10',
+            dagger           : '2.11',
 
             // for RxJava
             rxandroid        : "2.0.1",

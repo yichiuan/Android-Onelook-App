@@ -53,6 +53,14 @@ dependencies {
     compile "com.google.dagger:dagger:${libs.dagger}"
     annotationProcessor "com.google.dagger:dagger-compiler:${libs.dagger}"
 
+    compile ("com.google.dagger:dagger-android:${libs.dagger}") {
+        exclude group: 'com.google.code.findbugs'
+    }
+    compile ("com.google.dagger:dagger-android-support:${libs.dagger}") {
+        exclude group: 'com.google.code.findbugs'
+    }
+    annotationProcessor "com.google.dagger:dagger-android-processor:${libs.dagger}"
+
     // RxJava
     compile "io.reactivex.rxjava2:rxandroid:${libs.rxandroid}"
     compile "io.reactivex.rxjava2:rxjava:${libs.rxjava}"

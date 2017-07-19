@@ -1,22 +1,27 @@
 package com.yichiuan.onelook;
 
+import android.app.Activity;
 import android.app.Application;
 import android.os.StrictMode;
 import android.util.Log;
 
 import com.squareup.leakcanary.LeakCanary;
-import com.yichiuan.onelook.injection.AppComponent;
 import com.yichiuan.onelook.injection.AppModule;
 import com.yichiuan.onelook.injection.DaggerAppComponent;
-import com.yichiuan.onelook.injection.DataModule;
 import com.yichiuan.onelook.util.StethoHelper;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import timber.log.Timber;
 
 
-public class OnelookApp extends Application {
+public class OnelookApp extends Application implements HasActivityInjector {
 
-    private AppComponent appComponent;
+    @Inject
+    DispatchingAndroidInjector<Activity> activityAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -56,14 +61,13 @@ public class OnelookApp extends Application {
             StethoHelper.init(this);
         }
 
-        appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .dataModule(new DataModule())
-                .build();
+        DaggerAppComponent.builder().appModule(new AppModule(this))
+                .build().inject(this);
     }
 
-    public AppComponent getAppComponent() {
-        return appComponent;
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return activityAndroidInjector;
     }
 
     private static class FakeCrashReportTree extends Timber.Tree {

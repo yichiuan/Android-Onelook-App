@@ -1,18 +1,16 @@
 package com.yichiuan.onelook.injection;
 
-import android.content.Context;
-
-import com.yichiuan.onelook.data.DictionaryRepository;
+import com.yichiuan.onelook.OnelookApp;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import dagger.android.AndroidInjectionModule;
 
 
 @Singleton
-@Component(modules = {AppModule.class, DataModule.class})
+@Component(modules = {AndroidInjectionModule.class, AppModule.class, DataModule.class, BuilderModule.class})
 public interface AppComponent {
 
-    Context context();
-    DictionaryRepository dictionaryRepository();
+    void inject(OnelookApp application);
 }
