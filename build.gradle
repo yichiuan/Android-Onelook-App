@@ -23,18 +23,18 @@ ext {
     libs = [
             supportVersion   : '27.0.2',
             butterknife      : '8.8.1',
-            dagger           : '2.13',
+            dagger           : '2.14.1',
 
             // for RxJava
             rxandroid        : "2.0.1",
-            rxjava           : "2.1.6",
+            rxjava           : "2.1.8",
             rxbinding        : '2.0.0',
 
             // Retrofit
             retrofit         : '2.3.0',
-            okhttp3          : '3.9.0',
+            okhttp3          : '3.9.1',
             tikxml           : '0.8.13',
-            auto_value       : '1.4.1',
+            auto_value       : '1.5.3',
 
             // for debug
             timber           : '4.6.0',
