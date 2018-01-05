@@ -21,7 +21,7 @@ allprojects {
 
 ext {
     libs = [
-            supportVersion   : '26.1.0',
+            supportVersion   : '27.0.2',
             butterknife      : '8.8.1',
             dagger           : '2.13',
 
